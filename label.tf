@@ -1,5 +1,5 @@
 module "label" {
-  source             = "git::ssh://git@github.com:Callumccr/tf-mod-label.git?ref=master"
+  source             = "git::https://github.com/Callumccr/tf-mod-label.git?ref=master"
   context            = var.context
   namespace          = var.namespace
   environment        = var.environment

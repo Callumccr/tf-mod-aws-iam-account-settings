@@ -2,34 +2,39 @@
 
 | Name | Version |
 |------|---------|
-| aws | ~> 3.0 |
+| aws | ~> 2.0 |
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
-| aws\_policy\_arns | (Required) - list of existing AWS resource policies to associate with the assumed role. | `list(string)` | n/a | yes |
-| trusted\_arns | (Required) - list of IAM entities to add as principals to the trust policy of the assumed role | `list(string)` | n/a | yes |
+| allow\_users\_to\_change\_password | Whether to allow users to change their own password | `bool` | `true` | no |
 | attributes | (Optional) - Additional attributes (e.g. `1`) | `list(string)` | `[]` | no |
 | aws\_account\_id | The AWS account id of the provider being deployed to (e.g. 12345678). Autoloaded from account.tfvars | `string` | `""` | no |
 | aws\_assume\_role\_arn | ARN of the IAM role when optionally connecting to AWS via assumed role. Autoloaded from account.tfvars. | `string` | `""` | no |
 | aws\_region | The AWS region (e.g. ap-southeast-2). Autoloaded from region.tfvars. | `string` | `""` | no |
 | context | Default context to use for passing state between label invocations | <code><pre>object({<br>    namespace           = string<br>    environment         = string<br>    stage               = string<br>    name                = string<br>    enabled             = bool<br>    delimiter           = string<br>    attributes          = list(string)<br>    label_order         = list(string)<br>    tags                = map(string)<br>    additional_tag_map  = map(string)<br>    regex_replace_chars = string<br>  })<br></pre></code> | <code><pre>{<br>  "additional_tag_map": {},<br>  "attributes": [],<br>  "delimiter": "",<br>  "enabled": true,<br>  "environment": "",<br>  "label_order": [],<br>  "name": "",<br>  "namespace": "",<br>  "regex_replace_chars": "",<br>  "stage": "",<br>  "tags": {}<br>}<br></pre></code> | no |
 | delimiter | (Optional) - Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes` | `string` | `"-"` | no |
-| enabled | (Optional) - A Switch that decides whether to create a terraform resource or run a provisioner. Default is true | `bool` | `true` | no |
+| enabled | Whether or not to create the IAM account alias | `string` | `"true"` | no |
 | environment | (Optional) - Environment, e.g. 'dev', 'qa', 'staging', 'prod' | `string` | `""` | no |
+| hard\_expiry | Whether users are prevented from setting a new password after their password has expired (i.e. require administrator reset) | `bool` | `false` | no |
+| max\_password\_age | The number of days that a user's password is valid | `number` | `0` | no |
+| minimum\_password\_length | Minimum length to require for user passwords | `number` | `8` | no |
 | name | (Optional) - Solution name, e.g. 'vault', 'consul', 'keycloak', 'k8s', or 'baseline' | `string` | `""` | no |
 | namespace | (Optional) - Namespace, which could be your abbreviated product team, e.g. 'rci', 'mi', 'hp', or 'core' | `string` | `""` | no |
-| path | (Optional) - Path in which to create the role. | `string` | `"/"` | no |
+| password\_policy\_enabled | Whether or not to create the IAM account password policy | `string` | `"true"` | no |
+| password\_reuse\_prevention | The number of previous passwords that users are prevented from reusing | `bool` | `true` | no |
+| require\_lowercase\_characters | Whether to require lowercase characters for user passwords | `bool` | `true` | no |
+| require\_numbers | Whether to require numbers for user passwords | `bool` | `true` | no |
+| require\_symbols | Whether to require symbols for user passwords | `bool` | `true` | no |
+| require\_uppercase\_characters | Whether to require uppercase characters for user passwords | `bool` | `true` | no |
 | tags | (Optional) - Additional tags | `map(string)` | `{}` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| arn | The Amazon Resource Name (ARN) specifying the role. |
-| create\_date | The creation date of the IAM role. |
-| description | The description of the role. |
-| id | The name of the role. |
-| unique\_id | The stable and unique string identifying the role. |
+| account\_alias | IAM account alias |
+| minimum\_password\_length | IAM account minimum password length |
+| signin\_url | IAM users sign-in URL |
 
