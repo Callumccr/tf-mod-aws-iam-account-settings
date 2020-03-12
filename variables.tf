@@ -7,17 +7,30 @@ variable "aws_region" {
   type        = string
   default     = ""
 }
+
 variable "aws_account_id" {
   description = "The AWS account id of the provider being deployed to (e.g. 12345678). Autoloaded from account.tfvars"
   type        = string
   default     = ""
 }
+
 variable "aws_assume_role_arn" {
-  description = "ARN of the IAM role when optionally connecting to AWS via assumed role. Autoloaded from account.tfvars."
+  description = "(Optional) - ARN of the IAM role when optionally connecting to AWS via assumed role. Autoloaded from account.tfvars."
   type        = string
   default     = ""
 }
 
+variable "aws_assume_role_session_name" {
+  description = "(Optional) - The session name to use when making the AssumeRole call."
+  type        = string
+  default     = ""
+}
+
+variable "aws_assume_role_external_id" {
+  description = "(Optional) - The external ID to use when making the AssumeRole call."
+  type        = string
+  default     = ""
+}
 # -----------------------------------------------------------------------------
 # Variables: TF-MOD-AWS-IAM-ACCOUNT-SETTINGS
 # -----------------------------------------------------------------------------
@@ -66,65 +79,43 @@ variable "require_symbols" {
   description = "Whether to require symbols for user passwords"
   default     = true
 }
+
 # -----------------------------------------------------------------------------
 # Variables: TF-MOD-LABEL
 # -----------------------------------------------------------------------------
+
 variable "namespace" {
   type        = string
   default     = ""
   description = "(Optional) - Namespace, which could be your abbreviated product team, e.g. 'rci', 'mi', 'hp', or 'core'"
 }
+
 variable "environment" {
   type        = string
   default     = ""
   description = "(Optional) - Environment, e.g. 'dev', 'qa', 'staging', 'prod'"
 }
+
 variable "name" {
   type        = string
   default     = ""
   description = "(Optional) - Solution name, e.g. 'vault', 'consul', 'keycloak', 'k8s', or 'baseline'"
 }
+
 variable "delimiter" {
   type        = string
   default     = "-"
   description = "(Optional) - Delimiter to be used between `namespace`, `environment`, `stage`, `name` and `attributes`"
 }
+
 variable "attributes" {
   type        = list(string)
   default     = []
   description = "(Optional) - Additional attributes (e.g. `1`)"
 }
+
 variable "tags" {
   type        = map(string)
   default     = {}
   description = "(Optional) - Additional tags"
-}
-variable "context" {
-  type = object({
-    namespace           = string
-    environment         = string
-    stage               = string
-    name                = string
-    enabled             = bool
-    delimiter           = string
-    attributes          = list(string)
-    label_order         = list(string)
-    tags                = map(string)
-    additional_tag_map  = map(string)
-    regex_replace_chars = string
-  })
-  default = {
-    namespace           = ""
-    environment         = ""
-    stage               = ""
-    name                = ""
-    enabled             = true
-    delimiter           = ""
-    attributes          = []
-    label_order         = []
-    tags                = {}
-    additional_tag_map  = {}
-    regex_replace_chars = ""
-  }
-  description = "Default context to use for passing state between label invocations"
 }
