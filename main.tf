@@ -1,7 +1,6 @@
 
 resource "aws_iam_account_alias" "default" {
-  count = var.enabled == true ? 1 : 0
-
+  count         = var.enabled == true ? 1 : 0
   account_alias = module.label.id
 }
 

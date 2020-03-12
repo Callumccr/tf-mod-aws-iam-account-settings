@@ -139,7 +139,7 @@ Simple and advanced examples of this project:
 | name | (Optional) - Solution name, e.g. 'vault', 'consul', 'keycloak', 'k8s', or 'baseline' | `string` | `""` | no |
 | namespace | (Optional) - Namespace, which could be your abbreviated product team, e.g. 'rci', 'mi', 'hp', or 'core' | `string` | `""` | no |
 | password\_policy\_enabled | Whether or not to create the IAM account password policy | `string` | `"true"` | no |
-| password\_reuse\_prevention | The number of previous passwords that users are prevented from reusing | `bool` | `true` | no |
+| password\_reuse\_prevention | The number of previous passwords that users are prevented from reusing | `number` | `10` | no |
 | require\_lowercase\_characters | Whether to require lowercase characters for user passwords | `bool` | `true` | no |
 | require\_numbers | Whether to require numbers for user passwords | `bool` | `true` | no |
 | require\_symbols | Whether to require symbols for user passwords | `bool` | `true` | no |
